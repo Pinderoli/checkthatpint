@@ -60,17 +60,17 @@
     <script>
         async function fetchPubs() {
             try {
-                // Replace this URL with the real Wetherspoons API endpoint
-                const response = await fetch('https://api.example.com/wetherspoons/pubs');
-                const pubs = await response.json();
+                const response = await fetch('https://oandp-appmgr-prod.s3.eu-west-2.amazonaws.com/global.json?t=1736964139960');
+                const data = await response.json();
 
+                const pubs = data.venues;
                 const dropdown = document.getElementById('pub-dropdown');
                 dropdown.innerHTML = '<option value="" disabled selected>Select a pub...</option>';
 
                 pubs.forEach(pub => {
                     const option = document.createElement('option');
-                    option.value = pub.phone; // Assuming API provides a 'phone' field
-                    option.textContent = pub.name; // Assuming API provides a 'name' field
+                    option.value = pub.telephone || 'Phone number not available';
+                    option.textContent = pub.name;
                     dropdown.appendChild(option);
                 });
 
